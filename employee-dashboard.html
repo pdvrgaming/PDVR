@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard - PDVR Gaming</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="dashboard">
+        <header class="dashboard-header">
+            <div class="container">
+                <h1>PDVR Gaming - Employee Dashboard</h1>
+                <div class="header-actions">
+                    <span id="employeeWelcome">Welcome, Employee</span>
+                    <button onclick="toggleTheme()" class="btn btn-accent" id="themeToggle">🌙</button>
+                    <button onclick="showUpiModal()" class="btn btn-accent">Show UPI QR</button>
+                    <button onclick="logout()" class="btn btn-secondary">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <div class="container">
+                <div class="dashboard-tabs">
+                    <button class="tab-btn active" onclick="showTab('add-customer')">Add Customer</button>
+                    <button class="tab-btn" onclick="showTab('view-customers')">
+                        View Customers
+                        <span id="customerCount" class="badge">0</span>
+                    </button>
+                    <button class="tab-btn" onclick="showTab('todays-customers')">Today's Customers</button>
+                    <button class="tab-btn" onclick="showTab('my-customers')">My Customers</button>
+                </div>
+
+                <!-- Add Customer Tab -->
+                <div id="add-customer-tab" class="tab-content active">
+                    <div class="section-header">
+                        <h2>Add New Customer</h2>
+                    </div>
+
+                    <form id="addCustomerForm" class="customer-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="customerName">Customer Name</label>
+                                <input type="text" id="customerName" required style="text-transform: uppercase;">
+                            </div>
+                            <div class="form-group">
+                                <label for="customerPhone">Phone Number</label>
+                                <input type="tel" id="customerPhone" required pattern="^[0-9]{10}$" maxlength="10" title="Phone number must be exactly 10 digits" oninput="validatePhoneNumber()">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customerLocation">Location</label>
+                            <input type="text" id="customerLocation" placeholder="Enter customer location" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="gameName">Game</label>
+                                <select id="gameName" required onchange="updatePrice()">
+                                    <option value="">Select Game</option>
+                                    <option value="Roller Coster">Roller Coster</option>
+                                    <option value="Santa Ride">Santa Ride</option>
+                                    <option value="Henry">Henry</option>
+                                    <option value="Jurasic Park">Jurasic Park</option>
+                                    <option value="Beat Saber">Beat Saber</option>
+                                    <option value="Iron Man">Iron Man</option>
+                                    <option value="Richies Plank">Richies Plank</option>
+                                    <option value="Boxing">Boxing</option>
+                                    <option value="Horror">Horror</option>
+                                    <option value="Cricket">Cricket</option>
+                                    <option value="Solar System">Solar System</option>
+                                    <option value="Ocean Rift">Ocean Rift</option>
+                                    <option value="Mission ISS">Mission ISS</option>
+                                    <option value="Anotamy">Anotamy</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <input type="number" id="price" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="paymentType">Payment Type</label>
+                            <select id="paymentType" required>
+                                <option value="">Select Payment Type</option>
+                                <option value="Cash">Cash</option>
+                                <option value="UPI">UPI</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">Add to List</button>
+                    </form>
+                </div>
+
+                <!-- View Customers Tab -->
+                <div id="view-customers-tab" class="tab-content">
+                    <div class="section-header">
+                        <h2>Pending Customers</h2>
+                        <div class="customer-stats">
+                            <span>Total Amount: ₹<span id="totalAmount">0</span></span>
+                        </div>
+                    </div>
+
+                    <div id="pendingCustomersList" class="customers-list"></div>
+                </div>
+
+                <!-- Today's Customers Tab -->
+                <div id="todays-customers-tab" class="tab-content">
+                    <div class="section-header">
+                        <h2>Today's Customers</h2>
+                        <button onclick="refreshTodaysCustomers()" class="btn btn-primary">Refresh</button>
+                    </div>
+
+                    <div class="analytics">
+                        <div class="stat-card">
+                            <h3>Today's Total Customers</h3>
+                            <div id="todaysTotalCustomers" class="stat-value">0</div>
+                        </div>
+                    </div>
+
+                    <div id="todaysCustomersList" class="data-grid"></div>
+
+                    <div class="analytics bottom-analytics">
+                        <div class="stat-card total-revenue-card">
+                            <div class="card-icon">💰</div>
+                            <h3>Today's Total Revenue</h3>
+                            <div id="todaysTotalRevenue" class="stat-value">₹0</div>
+                        </div>
+                        <div class="stat-card cash-card">
+                            <div class="card-icon">💵</div>
+                            <h3>Today's Cash Revenue</h3>
+                            <div id="todaysCashRevenue" class="stat-value">₹0</div>
+                        </div>
+                        <div class="stat-card upi-card">
+                            <div class="card-icon">📱</div>
+                            <h3>Today's UPI Revenue</h3>
+                            <div id="todaysUpiRevenue" class="stat-value">₹0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Customers Tab -->
+                <div id="my-customers-tab" class="tab-content">
+                    <div class="section-header">
+                        <h2>My Customers (Paid)</h2>
+                        <button onclick="refreshMyCustomers()" class="btn btn-primary">Refresh</button>
+                    </div>
+
+                    <div class="filters">
+                        <input type="date" id="myCustomersStartDate">
+                        <input type="date" id="myCustomersEndDate">
+                        <button onclick="filterMyCustomers()" class="btn btn-primary">Filter by Date</button>
+                        <button onclick="resetMyCustomersFilter()" class="btn btn-secondary">View All</button>
+                    </div>
+
+                    <div class="analytics">
+                        <div class="stat-card">
+                            <h3>Total My Customers</h3>
+                            <div id="myTotalCustomers" class="stat-value">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>My Total Revenue</h3>
+                            <div id="myTotalRevenue" class="stat-value">₹0</div>
+                        </div>
+                    </div>
+
+                    <div id="myCustomersList" class="data-grid"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Customer Details Modal -->
+    <div id="customerDetailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Customer Details</h3>
+                <span class="close" onclick="closeModal('customerDetailsModal')">&times;</span>
+            </div>
+            <div id="customerDetailsContent" class="customer-details"></div>
+            <div class="form-actions">
+                <button onclick="closeModal('customerDetailsModal')" class="btn btn-secondary">Close</button>
+                <button id="generateUpiBtn" class="btn btn-accent" style="display: none;">Generate UPI QR</button>
+                <button id="submitCustomerBtn" class="btn btn-success">Submit (Mark as Paid)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- UPI QR Modal -->
+    <div id="upiModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>UPI Payment QR Code</h3>
+                <span class="close" onclick="closeModal('upiModal')">&times;</span>
+            </div>
+            <div class="qr-container">
+                <div class="qr-code">
+                    <img src="qr.jpg" alt="UPI QR Code" style="width: 260px; height: 260px; object-fit: contain; border: 2px solid #00ff88;">
+                </div>
+                <div class="upi-info">
+                    <h4>Payment Instructions:</h4>
+                    <ol>
+                        <li>Open any UPI app (PhonePe, Google Pay, Paytm)</li>
+                        <li>Scan the QR code above</li>
+                        <li>Enter the amount</li>
+                        <li>Complete the payment</li>
+                    </ol>
+                    <p><strong>UPI ID:</strong> premkumar4399@ybl</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic UPI Payment Modal -->
+    <div id="dynamicUpiModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>UPI Payment - ₹<span id="upiAmount">0</span></h3>
+                <span class="close" onclick="closeModal('dynamicUpiModal')">&times;</span>
+            </div>
+            <div class="qr-container">
+                <div class="qr-code" id="dynamicQrCode">
+                    <!-- Dynamic QR will be generated here -->
+                </div>
+                <div class="upi-info">
+                    <p><strong>Amount:</strong> ₹<span id="upiAmountText">0</span></p>
+                    <p><strong>UPI ID:</strong> premkumar4399@ybl</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="theme.js"></script>
+    <script src="auth.js"></script>
+    <script src="api.js"></script>
+    <script src="employee.js"></script>
+</body>
+
+</html>

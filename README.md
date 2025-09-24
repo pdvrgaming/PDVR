@@ -31,7 +31,7 @@
 ├── login.html          # Login page
 ├── admin-dashboard.html # Admin panel
 ├── employee-dashboard.html # Employee panel
-├── style.css           # Main styles
+├── styles.css          # Main styles
 ├── script.js           # Main JavaScript
 └── assets/             # Images and media files
 ```
@@ -41,6 +41,10 @@
 1. Clone the repository
 2. Open `index.html` in your browser
 3. Navigate through the VR gaming experiences
+
+## 🌐 Live Demo
+
+Visit our website: [PDVR Gaming](https://your-username.github.io/pdvr-gaming)
 
 ---
 © 2024 PDVR Gaming. All rights reserved.

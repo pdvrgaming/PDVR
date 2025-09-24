@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDVR Gaming - Virtual Reality Gaming Experience</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/png" href="index game icon.jpg">
-    <link rel="apple-touch-icon" href="index game icon.jpg">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="header">
         <div class="container">
-            <div class="logo">
+            <div class="logo" onclick="showHome()" style="cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.2); padding: 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.1);">
                 <h1>PDVR Gaming</h1>
                 <span>Virtual Reality Gaming Experience</span>
             </div>
@@ -55,7 +52,7 @@
                 
                 <!-- 360 Experience -->
                 <div class="category-section">
-                    <h3 class="category-title experience-360">🎢 FEEL THE RUSH!</h3>
+                    <h3 class="category-title experience-360">🎢 360° OF PURE ADRENALINE.</h3>
                     <div class="services-grid">
                     <div class="service-card">
                         <img src="ROLLER OCASTER.jpg" alt="Roller Coaster VR" class="service-image">
@@ -86,7 +83,7 @@
 
                 <!-- Gaming Experience -->
                 <div class="category-section">
-                    <h3 class="category-title experience-gaming">🔥 GAME ON WARRIOR!</h3>
+                    <h3 class="category-title experience-gaming">🔥 UNREAL WORLDS. REAL IMPACT.</h3>
                     <div class="services-grid">
                     <div class="service-card">
                         <img src="beat saber.jpg" alt="Beat Saber VR" class="service-image">
@@ -129,7 +126,7 @@
 
                 <!-- Educational Experience -->
                 <div class="category-section">
-                    <h3 class="category-title experience-educational">🌌 DISCOVER WORLDS!</h3>
+                    <h3 class="category-title experience-educational">🌌 LEARN WHAT CAN’T BE TAUGHT!</h3>
                     <div class="services-grid">
                     <div class="service-card">
                         <img src="solar system.jpg" alt="Solar System VR" class="service-image">
@@ -193,5 +190,13 @@
 
     <script src="script.js"></script>
     <script src="hamburger.js"></script>
+    <script>
+        function showHome() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </body>
 </html>

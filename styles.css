@@ -23,10 +23,15 @@ body {
     background: rgba(15, 15, 35, 0.95);
     backdrop-filter: blur(10px);
     padding: 1rem 0;
-    position: relative;
+    position: fixed;
+    top: 0;
     width: 100%;
     z-index: 1000;
     border-bottom: 1px solid #333;
+}
+
+body {
+    padding-top: 80px;
 }
 
 .header .container {
@@ -135,7 +140,7 @@ body {
 
 /* Hero Section */
 .hero {
-    padding: 100px 0;
+    padding: 60px 0;
     background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 100%);
 }
 
@@ -261,9 +266,25 @@ body {
 }
 
 .service-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-8px) scale(1.05);
     box-shadow: 0 15px 40px rgba(0, 255, 136, 0.3);
     border-color: rgba(0, 255, 136, 0.3);
+}
+
+/* Desktop hover effects */
+@media (min-width: 769px) {
+    .service-card:hover {
+        transform: translateY(-8px) scale(1.05) !important;
+        box-shadow: 0 15px 40px rgba(0, 255, 136, 0.4) !important;
+        border-color: rgba(0, 255, 136, 0.5) !important;
+    }
+}
+
+/* Mobile hover effects */
+@media (max-width: 768px) {
+    .service-card:hover {
+        transform: translateY(-2px) scale(1.02);
+    }
 }
 
 .service-icon {

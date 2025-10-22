@@ -1,1 +1,2 @@
-uodated images of games instead of emojis placed png,jpg images
+removed book now option's
+phone number as clickable and making call

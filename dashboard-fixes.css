@@ -1,0 +1,96 @@
+/* Dashboard Updates */
+.dashboard-header h1 {
+    font-size: 1.2rem !important;
+    font-weight: normal !important;
+}
+
+#employeeWelcome .employee-name-bold,
+#adminWelcome .employee-name-bold {
+    font-weight: bold !important;
+    font-size: 1.4rem !important;
+}
+
+/* Today's Total Customer - Square Box */
+#todays-customers-tab .analytics .stat-card:first-child {
+    max-width: 150px;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Tab Active Color - Purple */
+.tab-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+}
+
+.dashboard-main .container {
+    background: linear-gradient(135deg, #0f0f23, #1a1a3a) !important;
+}
+
+/* Revenue Cards - Side by Side */
+.bottom-analytics .stat-card {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem;
+    min-height: 70px;
+    max-width: 250px;
+}
+
+.bottom-analytics .card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
+.bottom-analytics h3 {
+    font-size: 0.75rem;
+    margin-bottom: 0.2rem;
+}
+
+.bottom-analytics .stat-value {
+    font-size: 1rem;
+}
+
+/* Light Theme Input Borders */
+body.light-theme input,
+body.light-theme select,
+body.light-theme textarea {
+    border: 2px solid #666 !important;
+}
+
+/* Mobile Filters */
+@media (max-width: 768px) {
+    .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .filters input,
+    .filters button {
+        flex: 1;
+        min-width: calc(50% - 0.25rem);
+    }
+    
+    #todays-customers-tab .analytics .stat-card:first-child {
+        max-width: 100%;
+        width: auto;
+        height: auto;
+    }
+    
+    /* Admin Dashboard Analytics - Side by Side on Mobile */
+    #customers-tab .analytics {
+        display: flex;
+        gap: 1rem;
+    }
+    
+    #customers-tab .analytics .stat-card {
+        flex: 1;
+    }
+}

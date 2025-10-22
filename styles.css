@@ -619,7 +619,8 @@ body {
 
 .dashboard-header h1 {
     color: #00ff88;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: normal;
 }
 
 .header-actions {
@@ -640,20 +641,27 @@ body {
 }
 
 .tab-btn {
-    background: none;
+    background: linear-gradient(45deg, transparent, transparent);
+    background-size: 300% 300%;
     border: none;
     padding: 1rem 1.5rem;
     color: #888;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 1s ease;
     position: relative;
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
+
+
 .tab-btn.active {
-    color: #00ff88;
+    color: #fff;
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    border-radius: 8px;
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
 }
 
 .tab-btn.active::after {
@@ -1156,6 +1164,12 @@ body {
         grid-template-columns: 1fr;
     }
     
+    /* Admin Dashboard Analytics - Side by Side on Mobile */
+    #customers-tab .analytics {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1rem;
+    }
+    
     .section-header {
         flex-direction: column;
         gap: 1rem;
@@ -1163,7 +1177,23 @@ body {
     }
     
     .dashboard-tabs {
-        flex-direction: column;
+        display: flex;
+        justify-content: space-between;
+        gap: 0.2rem;
+    }
+    
+    .tab-btn {
+        padding: 0.4rem 0.3rem;
+        font-size: 0.75rem;
+        flex: 1;
+        text-align: center;
+        min-width: 0;
+        transition: all 1s ease;
+    }
+    
+    .tab-btn.active {
+        transform: scale(1.02);
+        box-shadow: 0 2px 8px rgba(0, 255, 136, 0.4);
     }
     
     .customer-item {
@@ -1254,7 +1284,7 @@ body.light-theme select,
 body.light-theme textarea {
     background: #ffffff !important;
     color: #333 !important;
-    border: 1px solid #ccc !important;
+    border: 2px solid #333 !important;
 }
 
 body.light-theme input:focus,
@@ -1262,6 +1292,10 @@ body.light-theme select:focus,
 body.light-theme textarea:focus {
     border-color: #667eea !important;
     background: #ffffff !important;
+    color: #333 !important;
+}
+
+body.light-theme label {
     color: #333 !important;
 }
 body.light-theme .item-detail label,
@@ -1300,11 +1334,27 @@ body.light-theme #myCustomersList .data-item:nth-child(4) { background: linear-g
 body.light-theme #myCustomersList .data-item:nth-child(5) { background: linear-gradient(135deg, #fff8ff, #ffeaff) !important; }
 body.light-theme #myCustomersList .data-item:nth-child(6) { background: linear-gradient(135deg, #f8ffff, #eaffff) !important; }
 
-body.light-theme #customersList .data-item:nth-child(n+7),
-body.light-theme #todaysCustomersList .data-item:nth-child(n+7),
-body.light-theme #myCustomersList .data-item:nth-child(n+7) { 
-    background: linear-gradient(135deg, #fafafa, #f0f0f0) !important; 
-}
+/* Repeating color pattern for items 7+ */
+body.light-theme #customersList .data-item:nth-child(6n+7) { background: linear-gradient(135deg, #fff8f8, #ffeaea) !important; }
+body.light-theme #customersList .data-item:nth-child(6n+8) { background: linear-gradient(135deg, #f8fff8, #eaffea) !important; }
+body.light-theme #customersList .data-item:nth-child(6n+9) { background: linear-gradient(135deg, #f8f8ff, #eaeaff) !important; }
+body.light-theme #customersList .data-item:nth-child(6n+10) { background: linear-gradient(135deg, #fffff8, #ffffea) !important; }
+body.light-theme #customersList .data-item:nth-child(6n+11) { background: linear-gradient(135deg, #fff8ff, #ffeaff) !important; }
+body.light-theme #customersList .data-item:nth-child(6n+12) { background: linear-gradient(135deg, #f8ffff, #eaffff) !important; }
+
+body.light-theme #todaysCustomersList .data-item:nth-child(6n+7) { background: linear-gradient(135deg, #fff8f8, #ffeaea) !important; }
+body.light-theme #todaysCustomersList .data-item:nth-child(6n+8) { background: linear-gradient(135deg, #f8fff8, #eaffea) !important; }
+body.light-theme #todaysCustomersList .data-item:nth-child(6n+9) { background: linear-gradient(135deg, #f8f8ff, #eaeaff) !important; }
+body.light-theme #todaysCustomersList .data-item:nth-child(6n+10) { background: linear-gradient(135deg, #fffff8, #ffffea) !important; }
+body.light-theme #todaysCustomersList .data-item:nth-child(6n+11) { background: linear-gradient(135deg, #fff8ff, #ffeaff) !important; }
+body.light-theme #todaysCustomersList .data-item:nth-child(6n+12) { background: linear-gradient(135deg, #f8ffff, #eaffff) !important; }
+
+body.light-theme #myCustomersList .data-item:nth-child(6n+7) { background: linear-gradient(135deg, #fff8f8, #ffeaea) !important; }
+body.light-theme #myCustomersList .data-item:nth-child(6n+8) { background: linear-gradient(135deg, #f8fff8, #eaffea) !important; }
+body.light-theme #myCustomersList .data-item:nth-child(6n+9) { background: linear-gradient(135deg, #f8f8ff, #eaeaff) !important; }
+body.light-theme #myCustomersList .data-item:nth-child(6n+10) { background: linear-gradient(135deg, #fffff8, #ffffea) !important; }
+body.light-theme #myCustomersList .data-item:nth-child(6n+11) { background: linear-gradient(135deg, #fff8ff, #ffeaff) !important; }
+body.light-theme #myCustomersList .data-item:nth-child(6n+12) { background: linear-gradient(135deg, #f8ffff, #eaffff) !important; }
 /* Revenue card colors - Dark theme */
 .stat-card:nth-child(1) { background: linear-gradient(135deg, #1a237e, #3949ab) !important; }
 .stat-card:nth-child(2) { background: linear-gradient(135deg, #2d5016, #4a7c59) !important; }

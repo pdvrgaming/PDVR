@@ -1,0 +1,19 @@
+# employee dashboard
+
+#  in today's customer panel make the today's total revenue, today's cash revenue, today's upi revenue cards small, icon and name in that boxes has to be side by side.
+
+* # in today's customer panel make today's total customer stat-card length smaller in laptop view like a small square box and place it in center
+
+* # in view customer panel change tab active colour to purple or match to bg of dashboard
+
+# <h1>PDVR Gaming - Employee Dashboard</h1> make this as unbold and font size should be small, <span id="employeeWelcome">Welcome, PREM KUMAR</span> make employee name boldfont size should be big
+
+* # in add new customer make inputs boxes border more visible on light theme
+
+# in my paid customers panel make <div class="filters">…</div>flex side side by like boxes in mobile view only
+
+# admin dashboard
+
+# # <h1>PDVR Gaming - admin Dashboard</h1> make this as unbold and font size should be small, <span id="adminWelcome">Welcome, PDVR Gaming</span> make admin name bold,font size should be big
+
+* # manage employee, view customer change tab active colour to purple or match to bg of dashboard

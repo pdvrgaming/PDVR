@@ -230,8 +230,15 @@ function showCustomerDetails(customerId) {
         upiBtn.style.display = 'none';
     }
 
-    // Set up submit button
+    // Always show edit button
+    document.getElementById('editCustomerBtn').style.display = 'inline-block';
+    
+    // Reset submit button text and function
+    document.getElementById('submitCustomerBtn').textContent = 'Submit';
     document.getElementById('submitCustomerBtn').onclick = () => submitCustomer(customerId);
+    
+    // Set up edit button
+    document.getElementById('editCustomerBtn').onclick = () => editCustomer(customerId);
 
     showModal('customerDetailsModal');
 }
@@ -692,4 +699,97 @@ function setupPaymentButtons(amount) {
         const phonepeUrl = `phonepe://pay?pa=premkumar4399@ybl&pn=PDVR Gaming&am=${amount}&cu=INR`;
         window.open(phonepeUrl, '_blank');
     };
+}
+
+// Edit customer function
+function editCustomer(customerId) {
+    const customer = pendingCustomers.find(c => c.id === customerId);
+    if (!customer) return;
+
+    const detailsContent = document.getElementById('customerDetailsContent');
+    detailsContent.innerHTML = `
+        <div class="detail-item">
+            <span class="detail-label">Name:</span>
+            <input type="text" id="editName" value="${customer.name}" style="text-transform: uppercase;">
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Phone:</span>
+            <input type="tel" id="editPhone" value="${customer.phone}" maxlength="10">
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Location:</span>
+            <input type="text" id="editLocation" value="${customer.location}">
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Game:</span>
+            <select id="editGame" onchange="updateEditPrice()">
+                <option value="Roller Coster" ${customer.gameName === 'Roller Coster' ? 'selected' : ''}>Roller Coster</option>
+                <option value="Santa Ride" ${customer.gameName === 'Santa Ride' ? 'selected' : ''}>Santa Ride</option>
+                <option value="Henry" ${customer.gameName === 'Henry' ? 'selected' : ''}>Henry</option>
+                <option value="Jurasic Park" ${customer.gameName === 'Jurasic Park' ? 'selected' : ''}>Jurasic Park</option>
+                <option value="Beat Saber" ${customer.gameName === 'Beat Saber' ? 'selected' : ''}>Beat Saber</option>
+                <option value="Iron Man" ${customer.gameName === 'Iron Man' ? 'selected' : ''}>Iron Man</option>
+                <option value="Richies Plank" ${customer.gameName === 'Richies Plank' ? 'selected' : ''}>Richies Plank</option>
+                <option value="Boxing" ${customer.gameName === 'Boxing' ? 'selected' : ''}>Boxing</option>
+                <option value="Horror" ${customer.gameName === 'Horror' ? 'selected' : ''}>Horror</option>
+                <option value="Cricket" ${customer.gameName === 'Cricket' ? 'selected' : ''}>Cricket</option>
+                <option value="Solar System" ${customer.gameName === 'Solar System' ? 'selected' : ''}>Solar System</option>
+                <option value="Ocean Rift" ${customer.gameName === 'Ocean Rift' ? 'selected' : ''}>Ocean Rift</option>
+                <option value="Mission ISS" ${customer.gameName === 'Mission ISS' ? 'selected' : ''}>Mission ISS</option>
+                <option value="Anotamy" ${customer.gameName === 'Anotamy' ? 'selected' : ''}>Anotamy</option>
+            </select>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Price:</span>
+            <input type="number" id="editPrice" value="${customer.price}" readonly>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Payment Type:</span>
+            <select id="editPayment">
+                <option value="Cash" ${customer.paymentType === 'Cash' ? 'selected' : ''}>Cash</option>
+                <option value="UPI" ${customer.paymentType === 'UPI' ? 'selected' : ''}>UPI</option>
+                <option value="Other" ${customer.paymentType === 'Other' ? 'selected' : ''}>Other</option>
+            </select>
+        </div>
+    `;
+
+    // Hide edit button, show save button
+    document.getElementById('editCustomerBtn').style.display = 'none';
+    document.getElementById('submitCustomerBtn').textContent = 'Save Changes';
+    document.getElementById('submitCustomerBtn').onclick = () => saveCustomerChanges(customerId);
+}
+
+// Update price when game is changed in edit mode
+function updateEditPrice() {
+    const gameSelect = document.getElementById('editGame');
+    const priceInput = document.getElementById('editPrice');
+    
+    const selectedGame = gameSelect.value;
+    if (selectedGame && gamePrices[selectedGame]) {
+        priceInput.value = gamePrices[selectedGame];
+    }
+}
+
+// Save customer changes
+function saveCustomerChanges(customerId) {
+    const customerIndex = pendingCustomers.findIndex(c => c.id === customerId);
+    if (customerIndex === -1) return;
+
+    // Update customer data
+    pendingCustomers[customerIndex] = {
+        ...pendingCustomers[customerIndex],
+        name: document.getElementById('editName').value,
+        phone: document.getElementById('editPhone').value,
+        location: document.getElementById('editLocation').value,
+        gameName: document.getElementById('editGame').value,
+        price: parseInt(document.getElementById('editPrice').value),
+        paymentType: document.getElementById('editPayment').value
+    };
+
+    savePendingCustomers();
+    displayPendingCustomers();
+    updateTotalAmount();
+    
+    closeModal('customerDetailsModal');
+    showToast('Customer updated successfully', 'success');
 }
